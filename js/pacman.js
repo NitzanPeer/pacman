@@ -1,6 +1,8 @@
 'use strict'
 
-const PACMAN = '😀'
+
+// const PACMAN = '😀'
+const PACMAN = '<img src="img/Pacman.png">'
 var gPacman
 
 function createPacman(board) {
@@ -45,6 +47,10 @@ function onMovePacman(ev) {
     }
     if (nextCell === FOOD) {
         updateScore(1)
+        console.log('checkFoodCount()', checkFoodCount())
+        var x = checkFoodCount
+        console.log('x', x)
+        if (!checkFoodCount()) gameOver('.victory-modal')
     }
     if (nextCell === CHERRY) {
         updateScore(10)

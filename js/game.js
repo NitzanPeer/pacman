@@ -15,6 +15,7 @@ const gGame = {
 
 var gBoard
 var gCherryIntervalId
+var gFoodOnBoardCount
 
 
 function onInit() {
@@ -30,7 +31,7 @@ function onInit() {
     document.querySelector('.gameover-modal').style.display = 'none'
     document.querySelector('.victory-modal').style.display = 'none'
     gCherryIntervalId = setInterval(addCherry, 15000)
-
+    gFoodOnBoardCount = checkFoodCount()
 }
 
 function buildBoard() {
@@ -87,7 +88,6 @@ function updateScore(diff) {
     // update model and dom
     gGame.score += diff
     document.querySelector('h2 span').innerText = gGame.score
-    if (gGame.score === gGame.foodToWin) gameOver('.victory-modal')
 }
 
 function gameOver(modal) {
@@ -108,5 +108,18 @@ function addCherry() {
     renderCell(emptyPos, CHERRY)
 }
 
+function checkFoodCount() {
+    var count = 0
+    for (var i = 0; i < gBoard.length; i++) {
+        for (var j = 0; j < gBoard[i].length; j++) {
+            if (gBoard[i][j] === FOOD) {
+                count++
+            }
+        }
+    }
+    // bug where only 1 food left, maybe cause of pacman
+    count--
+    return count
+}
 
 // change two modals to one and push a diff message each time (win lose)
